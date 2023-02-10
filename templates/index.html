@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex flex-col container mx-auto px-5">
+    <section class="flex flex-col gap-5 text-white py-20">
+        <h2 class="text-4xl font-mono">AI Tools for the Liberal Arts</h2>
+        <p class="font-serif max-w-prose leading-loose">We aim to engage a broad, interdisciplinary community of
+            participants in
+            discussions and
+            activities related
+            to artificial intelligence, exploring and facilitating multi-way interactions between work in artificial
+            intelligence and work across the liberal arts.</p>
+    </section>
+
+    <section class="text-white">
+        <h2 class="text-center text-xl font-mono uppercase">Discover AI tools for each field ↓</h2>
+
+        <ol class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-8">
+            {% set tools = get_section(path="tools/_index.md") %}
+            {% for subsection in tools.subsections %}
+            {% set subsection = get_section(path=subsection) %}
+
+            {% set color = subsection.extra.color | default(value="purple") %}
+            {% set bg_color_class = ["bg-gradient-to-b", "from-" ~ color ~ "-500", "to-" ~ color ~ "-600"] | join(sep="
+            ")
+            %}
+
+            <li>
+                <a href="{{ subsection.permalink }}">
+                    <div class="{{ [" flex flex-col justify-between p-8 rounded-2xl aspect-video scale-100
+                        hover:scale-95 transition", bg_color_class] | join(sep=" " ) }}">
+                        <p class="text-4xl font-mono">{{ subsection.title }}</p>
+                        <p class="font-serif text-sm">{{ subsection.description }}</p>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ol>
+    </section>
+</div>
+{% endblock content %}
