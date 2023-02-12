@@ -17,20 +17,16 @@
 
         <ol class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-8">
             {% set tools = get_section(path="tools/_index.md") %}
-            {% for subsection in tools.subsections %}
-            {% set subsection = get_section(path=subsection) %}
 
-            {% set color = subsection.extra.color | default(value="purple") %}
-            {% set bg_color_class = ["bg-gradient-to-b", "from-" ~ color ~ "-500", "to-" ~ color ~ "-600"] | join(sep="
-            ")
-            %}
-
+            {% for section in tools.subsections %}
+            {% set section = get_section(path=section) %}
+            {% set color = section.extra.color | default(value="purple") %}
             <li>
-                <a href="{{ subsection.permalink }}">
-                    <div class="{{ [" flex flex-col justify-between p-8 rounded-2xl aspect-video scale-100
-                        hover:scale-95 transition", bg_color_class] | join(sep=" " ) }}">
-                        <p class="text-4xl font-mono">{{ subsection.title }}</p>
-                        <p class="font-serif text-sm">{{ subsection.description }}</p>
+                <a href="{{ section.permalink }}">
+                    <div class="flex flex-col justify-between p-8 rounded-2xl aspect-video scale-100
+                        hover:scale-95 transition bg-gradient-to-b from-{{ color }}-500 to-{{ color }}-600">
+                        <p class="text-4xl font-mono">{{ section.title }}</p>
+                        <p class="font-serif text-sm">{{ section.description }}</p>
                     </div>
                 </a>
             </li>

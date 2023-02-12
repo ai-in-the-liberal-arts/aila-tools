@@ -6,5 +6,5 @@ weight=1
 template = "tools.html"
 page_template = "tools-page.html"
 [extra]
-color="fuchsia"
+color = "fuchsia"
 +++

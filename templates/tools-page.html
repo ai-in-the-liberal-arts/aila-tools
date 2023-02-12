@@ -1,9 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-    {{ page.title }}
-</h1>
-<p class="subtitle"><strong>{{ page.date }}</strong></p>
-{{ page.content | safe }}
+{% set section = get_section(path=page.ancestors | last) %}
+{% set color = section.extra.color %}
+{% set author = page.extra.author | default(value="The AILA Team") %}
+<article class="max-w-prose mx-auto text-white px-5 py-20">
+    <header class="flex flex-col gap-5 font-mono">
+        <h1 class="text-6xl leading-snug">{{ page.title }}</h1>
+        <p class="text-xl leading-loose">{{ page.description }}</p>
+    </header>
+
+    <p class="py-10 text-center uppercase tracking-widest">By {{ author }}</p>
+
+    <section
+        class="text-xl text-neutral-300 font-serif leading-loose first-letter:float-left first-letter:text-9xl first-letter:inline-block first-letter:font-mono first-letter:font-black first-letter:rounded-2xl first-letter:p-4 first-letter:mr-3 first-letter:bg-gradient-to-b first-letter:from-{{ color }}-500 first-letter:to-{{ color }}-600">
+        {{ page.content | safe }}
+    </section>
+</article>
 {% endblock content %}

@@ -1,17 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-    {{ section.title }}
-</h1>
-{% for subsection in section.subsections %}
-{% set subsection = get_section(path=subsection) %}
-<h1><a href="{{ subsection.permalink }}">{{ subsection.title }}</a></h1>
-{% endfor %}
-<ul>
-    <!-- If you are using pagination, section.pages will be empty. You need to use the paginator object -->
-    {% for page in section.pages %}
-    <li><a href="{{ page.permalink | safe }}">{{ page.title }}</a></li>
-    {% endfor %}
-</ul>
+{% set color = section.extra.color | default(value="purple") %}
+
+<div class="max-w-prose mx-auto px-5 py-10">
+    <div class="flex flex-col gap-4 p-8 rounded-2xl font-mono bg-gradient-to-b from-{{ color }}-500 to-{{ color }}-600">
+        <h1 class="text-3xl leading-snug">The State of {{ section.title }} and AI</h1>
+        <p class="leading-loose">{{ section.description }}</p>
+    </div>
+
+    <ul class="flex flex-col">
+        {% for page in section.pages %}
+        <li class="py-8 text-4xl font-mono italic leading-snug border-b border-white last:border-0"><a
+                href="{{ page.permalink | safe }}">→ {{
+                page.title }}</a>
+        </li>
+        {% endfor %}
+
+        {% if section.pages | length == 0 %}
+        <li class="py-8 font-mono leading-snug">There's nothing here yet. Check back later!</li>
+        {% endif %}
+    </ul>
+</div>
 {% endblock content %}
