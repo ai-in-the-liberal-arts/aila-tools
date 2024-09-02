@@ -1,5 +1,5 @@
 # The URL the site will be built for
-base_url = "https://tools.liberal-arts.ai"
+base_url = "https://aitools.atamherst.com"
 
 title = "AILA Tools"
 
